@@ -8,7 +8,7 @@ $ sudo apt install ansible
 
 ```
 
-# Jenkins Installation
+# Apache Installation
 
 First thing you have edit ansible.cfg file.Inside ansible.cfg you need define "remote_user" 
 and "private_key_file".Follow below mention command and example value
