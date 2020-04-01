@@ -1,5 +1,5 @@
 - name: Create swap file
-  command: dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size_kb }}k
+  command: sudo dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size_kb }}k
            creates="{{ swap_file_path }}"
   tags: swap.file.create
 
@@ -16,7 +16,7 @@
   tags: swap.file.mkswap
 
 - name: Make swap file
-  command: "mkswap {{ swap_file_path }}"
+  command: "sudo mkswap {{ swap_file_path }}"
   when: swapfile.stdout.find('swap file') == -1
   tags: swap.file.mkswap
 
@@ -31,6 +31,6 @@
   tags: swap.fstab
 
 - name: Mount swap
-  command: "swapon {{ swap_file_path }}"
+  command: "sudo swapon {{ swap_file_path }}"
   when: ansible_swaptotal_mb < 1
   tags: swap.file.swapon
