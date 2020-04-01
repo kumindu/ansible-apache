@@ -4,7 +4,7 @@
   tags: swap.file.create
 
 - name: Change swap file permissions
-  file: sudo path="{{ swap_file_path }}"
+  file: path="{{ swap_file_path }}"
         owner=root
         group=root
         mode=0600
