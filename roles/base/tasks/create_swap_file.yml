@@ -1,4 +1,3 @@
----
 - name: Create swap file
   command: sudo dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size_kb }}k
            creates="{{ swap_file_path }}"
@@ -23,6 +22,7 @@
   tags: swap.file.mkswap
 
 - name: Write swap entry in fstab
+  command: sudo su
   mount: name=none
          src={{ swap_file_path }}
          fstype=swap
