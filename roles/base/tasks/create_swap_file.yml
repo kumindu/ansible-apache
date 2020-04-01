@@ -5,8 +5,8 @@
 
 - name: Change swap file permissions
   file: path="{{ swap_file_path }}"
-        owner=ubuntu
-        group=ubuntu
+        owner=root
+        group=root
         mode=0600
   tags: swap.file.permissions
 
