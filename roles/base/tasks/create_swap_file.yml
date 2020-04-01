@@ -4,24 +4,24 @@
   tags: swap.file.create
 
 - name: Change swap file permissions
-  file: path="{{ swap_file_path }}"
+  file: sudo path="{{ swap_file_path }}"
         owner=root
         group=root
         mode=0600
   tags: swap.file.permissions
 
 - name: Check swap file type
-  command: file {{ swap_file_path }}
+  command: sudo file {{ swap_file_path }}
   register: swapfile
   tags: swap.file.mkswap
 
 - name: Make swap file
-  command: "mkswap {{ swap_file_path }}"
+  command: "sudo mkswap {{ swap_file_path }}"
   when: swapfile.stdout.find('swap file') == -1
   tags: swap.file.mkswap
 
 - name: Write swap entry in fstab
-  mount: name=none
+  mount: sudo name=none
          src={{ swap_file_path }}
          fstype=swap
          opts=sw
@@ -31,6 +31,6 @@
   tags: swap.fstab
 
 - name: Mount swap
-  command: "swapon {{ swap_file_path }}"
+  command: "sudo swapon {{ swap_file_path }}"
   when: ansible_swaptotal_mb < 1
   tags: swap.file.swapon
