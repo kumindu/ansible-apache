@@ -1,10 +1,10 @@
 - name: Create swap file
-  command: dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size_kb }}k
+  command: sudo dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size_kb }}k
            creates="{{ swap_file_path }}"
   tags: swap.file.create
 
 - name: Change swap file permissions
-  file: path="{{ swap_file_path }}"
+  file: sudo path="{{ swap_file_path }}"
         owner=root
         group=root
         mode=0600
@@ -21,7 +21,7 @@
   tags: swap.file.mkswap
 
 - name: Write swap entry in fstab
-  mount: sudo name=none
+  mount: name=none
          src={{ swap_file_path }}
          fstype=swap
          opts=sw
